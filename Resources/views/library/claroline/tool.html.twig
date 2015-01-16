@@ -1,0 +1,118 @@
+{% extends 'HeVinciMockupBundle::library/claroline/layout.html.twig' %}
+
+{% set toolName = toolName is defined ? toolName : 'Nouvel outil' %}
+{% set toolIcon = toolIcon is defined ? toolIcon : 'question' %}
+{% set toolSection = toolSection is defined ? toolSection : 'Bureau' %}
+{% set toolPage = toolPage is defined ? toolPage : [] %}
+{% set workspace = toolWorkspace is defined ? toolWorkspace : 'Espace personnel - jdoe' %}
+{% set panelTitle = toolPage is empty ? toolName : toolPage|last %}
+
+{% if toolSection == 'Administration' %}
+    {% set toolList = [
+            {'name': 'Paramètres de la plateforme', 'icon': 'cog'},
+            {'name': 'Gestion des utilisateurs', 'icon': 'user'},
+            {'name': 'Gestion des espaces d\'activités', 'icon': 'book'},
+            {'name': 'Gestion des badges', 'icon': 'trophy'},
+            {'name': 'Inscription à des espaces d\'activités', 'icon': 'book'},
+            {'name': 'Paquets de la plateforme', 'icon': 'wrench'},
+            {'name': 'Onglets de la page d\'accueil', 'icon': 'th-large'},
+            {'name': 'Outils du bureau', 'icon': 'pencil'},
+            {'name': 'Suivi de la plateforme', 'icon': 'bars'},
+            {'name': 'Statistiques de la plateforme', 'icon': 'bar-chart-o'},
+            {'name': 'Gestion des rôles', 'icon': 'users'}
+        ]
+    %}
+{% elseif toolSection == 'Espace d\'activités' %}
+    {% set toolList = [
+            {'name': 'Voir en tant que', 'icon': 'eye'},
+            {'name': 'Accueil', 'icon': 'home'},
+            {'name': 'Ressources', 'icon': 'folder-open'},
+            {'name': 'Paramètres', 'icon': 'cog'},
+            {'name': 'Agenda', 'icon': 'calendar'},
+            {'name': 'Suivi', 'icon': 'list'},
+            {'name': 'Tableau de bord', 'icon': 'bar-chart-o'},
+            {'name': 'Utilisateur', 'icon': 'user'},
+            {'name': 'Badges', 'icon': 'trophy'},
+            {'name': 'Mes badges', 'icon': 'trophy'},
+            {'name': 'Mes activités', 'icon': 'tasks'},
+            {'name': 'Equipes', 'icon': 'users'}
+        ]
+    %}
+{% elseif toolSection == 'Bureau' %}
+    {% set toolList = [
+            {'name': 'Accueil', 'icon': 'home'},
+            {'name': 'Ressources', 'icon': 'folder-open'},
+            {'name': 'Paramètres', 'icon': 'cog'}
+        ]
+    %}
+{% else %}
+    {% set toolList = [] %}
+{% endif %}
+
+{% block title %}{{ toolName }} - {{ panelTitle }}{% endblock %}
+
+{% block sidebar %}
+    <div class="hidden-xs">
+        <div class="hide">
+            <div id="left-bar" class="sidebar">
+                <div class="list-group menu" style="top: 0px;">
+                    <div class="list-group-item disabled pouet">
+                        {% if toolSection == 'Espace d\'activités' %}
+                            {{ workspace }}
+                        {% else %}
+                            {{ toolSection }}
+                        {% endif %}
+                    </div>
+                    {% for tool in toolList %}
+                        <a class="list-group-item" href="#">
+                            <i class="fa fa-{{ tool.icon }}"></i>
+                            {{ tool.name }}
+                        </a>
+                    {% endfor %}
+                    <a class="list-group-item active" href="#">
+                        <i class="fa fa-{{ toolIcon }}"></i>
+                        {{ toolName }}
+                    </a>
+                </div>
+                <div class="scroll-up hide" aria-hidden="true"><i class="fa fa-angle-double-up"></i></div>
+                <div class="scroll-down" aria-hidden="true"><i class="fa fa-angle-double-down"></i></div>
+            </div>
+        </div>
+        <div class="hide">
+            <div id="right-bar" class="sidebar"></div>
+        </div>
+    </div>
+{% endblock %}
+
+{% block breadcrumb %}
+    {% if toolSection == 'Espace d\'activités' %}
+        <li><a href="#"><i class="fa fa-book"></i>
+                Mes espaces d'activités</a></li>
+        <li><a href="#">{{ workspace }}</a></li>
+    {% else %}
+        <li>
+            <a href="#"><i class="{% if toolSection == 'Administration' %}
+            fa fa-cog
+        {% elseif toolSection == 'Bureau' %}
+            fa fa-briefcase
+        {% endif %}"></i>
+                {{ toolSection }}</a>
+        </li>
+    {% endif %}
+    {% if toolPage is not empty %}
+        <li><a href="#">{{ toolName }}</a></li>
+        {% for element in toolPage %}
+            {% if loop.last %}
+                <li class="active">{{ element }}</li>
+            {% else %}
+                <li><a href="#">{{ element }}</a></li>
+            {% endif %}
+        {% endfor %}
+    {% else %}
+        <li class="active">{{ toolName }}</li>
+    {% endif %}
+{% endblock %}
+
+{% block panelTitle %}
+    {{ panelTitle }}
+{% endblock %}

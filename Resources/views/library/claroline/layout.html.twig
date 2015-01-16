@@ -1,0 +1,285 @@
+<html lang="fr">
+<head>
+    <meta charset="utf-8">
+    <meta http-equiv="Content-Type" content="text/html; charset=utf-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge,chrome=1">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>
+        {% block title %}Mockup{% endblock %}
+    </title>
+    <link rel="stylesheet" href="{{ asset('themes/claroline/bootstrap.css') }}" screen="media">
+    <link rel="stylesheet" href="{{ asset('vendor/fortawesome/font-awesome/css/font-awesome.css') }}">
+    <script type="text/javascript" src="{{ asset('bundles/frontend/jquery/jquery-2.1.0.min.js') }}"></script>
+    <link rel="stylesheet" type="text/css"
+          href="{{ asset('bundles/frontend/jquery/plugin/datepicker/css/datepicker3.css') }}">
+    <link rel="shortcut icon" href="{{ asset('bundles/clarolinecore/images/ico/favicon.ico') }}">
+    <link rel="apple-touch-icon" href="{{ asset('bundles/clarolinecore/images/ico/apple-touch-icon.png') }}">
+    <link rel="stylesheet"
+          href="{{ asset('bundles/frontend/tinymce/plugins/mention/css/autocomplete.css') }}">
+</head>
+<body class="left-bar-push">
+<div id="sf-environement" data-env="dev" class="hide"></div>
+<div id="homePath" class="hide">{{ path('claro_index') }}</div>
+<div id="homeAsset" class="hide">{{ asset('') }}</div>
+<div id="homeLocale" class="hide">fr_FR</div>
+<div id="wrap">
+    {% block sidebar %}{% endblock %}
+    <div id="top_bar" class="navbar navbar-inverse navbar-fixed-top left-bar-push break" role="navigation"
+         style="overflow: hidden;">
+        <div class="container">
+            <div class="navbar-header">
+                <button class="navbar-toggle" data-toggle="collapse" data-target=".navbar-collapse">
+                    <span class="icon-bar"></span>
+                    <span class="icon-bar"></span>
+                    <span class="icon-bar"></span>
+                </button>
+                <a class="navbar-brand logo" href="#">
+                    <img src="{{ asset('uploads/logos/clarolineconnect.png') }}" height="35">
+                </a>
+            </div>
+            <div class="navbar-collapse collapse">
+                <ul class="nav navbar-nav">
+                    <ul class="nav navbar-nav">
+                        <li role="presentation" class="first">
+                            <a role="menuitem" href=#" title="Bureau">
+                                <i class="fa fa-briefcase"></i><span class="break-hide"> Mon profil</span>
+                                <span class="badge"></span>
+                            </a>
+                        </li>
+                        <li>
+                            <a role="menuitem" href="#" title="Administration">
+                                <i class="fa fa-cog"></i><span class="break-hide"> Administration</span>
+                            </a>
+                        </li>
+                        <li>
+                            <a role="menuitem" href="#"
+                               title="Vous avez 0 nouveaux message(s)">
+                                <i class="fa fa-envelope"></i>
+                                <span class="break-hide"> Messages</span>
+                            </a>
+                        </li>
+                        <li id="notification-topbar-item" class="last dropdown">
+                            <a role="menuitem" title="Notifications" class="pointer-hand dropdown-toggle"
+                               data-toggle="dropdown">
+                                <i class="fa fa-bell"></i>
+                                <span class="break-hide"> Notifications</span>
+                            </a>
+                            <div class="notifications-dropdown-list dropdown-menu">
+                                <div class="notification-pointer"></div>
+                                <div class="notification-content">
+                                    <div style="text-align: center"><img
+                                                src="#"></div>
+                                </div>
+                            </div>
+                            <div>
+                                <script type="text/javascript">
+                                    var loadingIcon = "{{ asset('bundles/icapnotification/images/icons/loadinfo.gif') }}";
+                                    var notificationElementId = "notification-topbar-item";
+                                </script>
+                                <script type="text/javascript"
+                                        src="{{ asset('bundles/icapnotification/js/script.js') }}"></script>
+                                <link rel="stylesheet" type="text/css"
+                                      href="{{ asset('bundles/icapnotification/css/dropdown.css') }}">
+                            </div>
+                        </li>
+                    </ul>
+                </ul>
+                <ul class="nav navbar-nav navbar-right">
+                    <li role="presentation" class="dropdown">
+                        <a role="menuitem" class="pointer-hand dropdown-toggle" data-toggle="dropdown">
+                            <i class="fa fa-book"></i>
+                            <span> Espaces d'activités </span>
+                            <i class="caret"></i>
+                        </a>
+                        <ul class="dropdown-menu" role="menu">
+                            <li role="presentation" class="dropdown-header">Historique</li>
+                            <li role="presentation" class="">
+                                <a role="menuitem" href="#"><span> Espace personnel - John Doe (admin) </span>
+                                </a>
+                            </li>
+                            <li role="presentation" class="divider"></li>
+                            <li role="presentation" class="">
+                                <a role="menuitem" href="#">
+                                    <i class="fa fa-book"></i><span> Mes espaces d'activités </span>
+                                </a>
+                            </li>
+                            <li role="presentation" class="">
+                                <a role="menuitem" href="#">
+                                    <i class="fa fa-book"></i><span> Tous les espaces d'activités publics </span>
+                                </a>
+                            </li>
+                            <li role="presentation" class="divider"></li>
+                            <li role="presentation" class="">
+                                <a role="menuitem" href="#">
+                                    <i class="fa fa-pencil"></i><span> Créer un espace d'activités </span>
+                                </a>
+                            </li>
+                        </ul>
+                    </li>
+                    <li role="presentation" class="dropdown">
+                        <a role="menuitem" class="pointer-hand dropdown-toggle" data-toggle="dropdown">
+                            <i class="fa fa-user"></i><span> John Doe</span>
+                            <i class="caret"></i>
+                        </a>
+                        <ul class="dropdown-menu" role="menu">
+                            <li class="dropdown first" role="presentation">
+                                <a role="menuitem" href="#">
+                                    <i class="fa fa-user"></i><span> Mon profil</span>
+                                </a>
+                            </li>
+                            <li class="divider" role="presentation">
+                                <span>1</span>
+                            </li>
+                            <li class="dropdown" role="presentation">
+                                <a role="menuitem" href="#">
+                                    <i class="fa fa-book"></i><span> Espace personnel</span>
+                                </a>
+                            </li>
+                            <li class="dropdown" role="presentation">
+                                <a role="menuitem" href="#">
+                                    <i class="fa fa-calendar"></i><span> Mon agenda</span>
+                                </a>
+                            </li>
+                            <li class="dropdown" role="presentation">
+                                <a role="menuitem"
+                                   href="#">
+                                    <i class="fa fa-folder"></i><span> Mes ressources</span>
+                                </a>
+                            </li>
+                            <li class="dropdown" role="presentation">
+                                <a role="menuitem" href="#">
+                                    <i class="fa fa-trophy"></i><span> Mes badges</span>
+                                </a>
+                            </li>
+                            <li class="divider" role="presentation">
+                                <span>2</span>
+                            </li>
+                            <li class="dropdown last" role="presentation" name="logout" id="btn-logout">
+                                <a role="menuitem" href="#">
+                                    <i class="fa fa-power-off"></i><span> Déconnexion</span>
+                                </a>
+                            </li>
+                        </ul>
+                    </li>
+                </ul>
+            </div>
+        </div>
+    </div>
+    <div class="container">
+        <div class="row">
+            <div class="col-md-12">
+                <ul class="breadcrumb">
+                    {% block breadcrumb %}{% endblock %}
+                </ul>
+            </div>
+        </div>
+        <div class="row content">
+            <div class="col-md-12">
+                <div class="panel panel-default">
+                    {% block panelContent %}
+                        <div class="panel-heading">
+                            <h3 class="panel-title">
+                                {% block panelTitle %}{% endblock %}
+                            </h3>
+                        </div>
+                        {% block panelRest %}{% endblock %}
+                    {% endblock %}
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <div id="push"></div>
+</div>
+<div id="footer">
+    <div class="container">
+        <div class="row">
+            <p>
+                <span class="pull-right locale-select label label-default">FR</span>
+                                <span>
+                    Développé par <a href="#">Claroline</a>
+                </span>
+            </p>
+        </div>
+    </div>
+</div>
+<script type="text/javascript" src="{{ asset('bundles/clarolinecore/js/iframe/iframe.js') }}"></script>
+<script type="text/javascript" src="{{ asset('vendor/twbs/bootstrap/js/bootstrap.js') }}"></script>
+<script type="text/javascript" src="{{ asset('vendor/jms/twig-js/twig.js') }}"></script>
+
+{# core bundle should output a named file for this #}
+{% javascripts debug=false filter='twig_js, jsmin' vars=["locale"]
+    "@ClarolineCoreBundle/Resources/views/Resource/breadcrumbs.html.twigjs"
+    "@ClarolineCoreBundle/Resources/views/Resource/actions.html.twigjs"
+    "@ClarolineCoreBundle/Resources/views/Resource/filters.html.twigjs"
+    "@ClarolineCoreBundle/Resources/views/Resource/thumbnail.html.twigjs"
+    "@ClarolineCoreBundle/Resources/views/Resource/results.html.twigjs"
+    "@ClarolineCoreBundle/Resources/views/Resource/roles.html.twigjs"
+    "@ClarolineCoreBundle/Resources/views/Modal/modal.html.twigjs"
+    "@ClarolineCoreBundle/Resources/views/Modal/validationFooter.html.twigjs"
+    "@ClarolineCoreBundle/Resources/views/Modal/errorFooter.html.twigjs"
+    "@ClarolineCoreBundle/Resources/views/ConfirmationMessage/confirmAddRole.html.twigjs"
+    "@ClarolineCoreBundle/Resources/views/ConfirmationMessage/removeGroupConfirm.html.twigjs"
+    "@ClarolineCoreBundle/Resources/views/ConfirmationMessage/removeUserConfirm.html.twigjs"
+    "@ClarolineCoreBundle/Resources/views/ConfirmationMessage/removeMessageConfirm.html.twigjs"
+    "@ClarolineCoreBundle/Resources/views/ConfirmationMessage/restoreMessageConfirm.html.twigjs"
+    "@ClarolineCoreBundle/Resources/views/ConfirmationMessage/resetPasswordConfirm.html.twigjs"
+    "@ClarolineCoreBundle/Resources/views/ConfirmationMessage/addUserConfirm.html.twigjs"
+    "@ClarolineCoreBundle/Resources/views/Tool/workspace/roles/roleUserLabel.html.twigjs"
+    "@ClarolineCoreBundle/Resources/views/Tool/workspace/roles/roleGroupLabel.html.twigjs"
+    "@ClarolineCoreBundle/Resources/views/ConfirmationMessage/removeWorkspacesConfirm.html.twigjs"
+    "@ClarolineCoreBundle/Resources/views/ConfirmationMessage/noRoleSelected.html.twigjs"
+    "@ClarolineCoreBundle/Resources/views/Administration/Facet/facetTab.html.twigjs"
+    "@ClarolineCoreBundle/Resources/views/Administration/Facet/facetTabInnerHtml.html.twigjs"
+    "@ClarolineCoreBundle/Resources/views/Administration/Facet/facetPane.html.twigjs"
+    "@ClarolineCoreBundle/Resources/views/Administration/Facet/fieldElement.html.twigjs"
+    "@ClarolineCoreBundle/Resources/views/Administration/Facet/fieldElementInnerHtml.html.twigjs"
+    "@ClarolineCoreBundle/Resources/views/Administration/Roles/renderRoleRow.html.twig"
+    "@ClarolineCoreBundle/Resources/views/Agenda/eventContent.html.twig"
+    "@ClarolineCoreBundle/Resources/views/Agenda/task.html.twig"
+    "@ClarolineCoreBundle/Resources/views/Tool/workspace/parameters/model/modelRow.html.twig"
+    "@ClarolineCoreBundle/Resources/views/Tool/workspace/parameters/model/userRow.html.twig"
+    "@ClarolineCoreBundle/Resources/views/Tool/workspace/parameters/model/groupRow.html.twig"
+    "@ClarolineCoreBundle/Resources/views/Tool/workspace/parameters/model/resourceElement.html.twig"
+    "@ClarolineCoreBundle/Resources/views/Tool/workspace/parameters/model/tabElement.html.twig"
+    "@ClarolineCoreBundle/Resources/views/Administration/Competence/competenceItem.html.twig"
+    "@ClarolineCoreBundle/Resources/views/Administration/Competence/competenceNodeItem.html.twig"
+%}<script type="text/javascript" src="{{ asset_url }}"></script>
+{% endjavascripts %}
+
+<script type="text/javascript" src="{{ asset('vendor/jquery/ui/jqueryui.js') }}"></script>
+<script type="text/javascript" src="{{ asset('bundles/fosjsrouting/js/router.js') }}"></script>
+<script type="text/javascript" src="{{ asset('bundles/bazingajstranslation/js/translator.min.js') }}"></script>
+
+{# inlining client side translations #}
+<script type="text/javascript">
+    {{ render(url('bazinga_jstranslation_js', { 'domain': 'home' })) }}
+</script>
+
+<script type="text/javascript"
+        src="{{ asset('bundles/frontend/jquery/plugin/datepicker/js/bootstrap-datepicker.js') }}"></script>
+<script type="text/javascript"
+        src="{{ asset('bundles/frontend/jquery/plugin/datepicker/js/locales/bootstrap-datepicker.fr.js') }}"></script>
+<script type="text/javascript" src="{{ asset('bundles/frontend/underscore/underscore-1.6.0.min.js') }}"></script>
+<script type="text/javascript" src="{{ asset('bundles/frontend/backbone/backbone-1.1.2.min.js') }}"></script>
+<script type="text/javascript" src="{{ asset('vendor/claroline/js/libraries.js') }}"></script>
+<script type="text/javascript"
+        src="{{ asset('bundles/stfalcontinymce/vendor/tinymce/tinymce.jquery.min.js') }}"></script>
+<script type="text/javascript"
+        src="{{ asset('bundles/stfalcontinymce/vendor/tinymce/jquery.tinymce.min.js') }}"></script>
+<!-- this is not duplicated file -->
+<script type="text/javascript" src="{{  asset('bundles/clarolinecore/js/tinymce/tinymce.js') }}"></script>
+<script type="text/javascript">
+    $('body').tooltip({
+        selector: '[data-toggle=tooltip]'
+    });
+</script>
+<script type="text/javascript">
+    $('.maintenance-popover').popover();
+</script>
+<script type="text/javascript" src="{{ asset('bundles/clarolinecore/js/administration/competences.js') }}"></script>
+
+{% block modal %}{% endblock %}
+
+</body>
+</html>

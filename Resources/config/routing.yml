@@ -1,0 +1,4 @@
+hevinci_mockup:
+    resource: "@HeVinciMockupBundle/Controller/BaseController.php"
+    type:     annotation
+    prefix:   /
