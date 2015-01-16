@@ -93,7 +93,7 @@ class ExportCommand extends ContainerAwareCommand
             $templates[] = $target;
         }
 
-        $targetDir = 'mockups-' . date('d-m-y-s');
+        $targetDir = 'mockups-' . date('d-m-y-h:i:s');
         $manager->exportTemplates($templates, getcwd() . '/' . $targetDir);
         $output->writeln("Mockups exported in '{$targetDir}'");
     }
