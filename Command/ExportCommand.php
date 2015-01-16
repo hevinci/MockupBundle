@@ -50,9 +50,20 @@ class ExportCommand extends ContainerAwareCommand
 
         // look for bundle target
         if (array_key_exists($target, $bundles)) {
-            $mockupDir = $bundles[$target]->getPath() . '/Resources/views/mockup';
+            $appDir = $this->getContainer()->get('kernel')->getRootDir();
+            $appMockupDir = $appDir . '/Resources/' . $bundles[$target]->getName() . '/views/mockup';
+            $bundleMockupDir = $bundles[$target]->getPath() . '/Resources/views/mockup';
+            $lookupDirs = [];
 
-            if (!file_exists($mockupDir)) {
+            if (file_exists($appMockupDir)) {
+                $lookupDirs[] = $appMockupDir;
+            }
+
+            if (file_exists($bundleMockupDir)) {
+                $lookupDirs[] = $bundleMockupDir;
+            }
+
+            if (count($lookupDirs) === 0) {
                 $output->writeln(
                     "Bundle '{$bundles[$target]->getName()}' has no mockup directory"
                 );
@@ -62,10 +73,14 @@ class ExportCommand extends ContainerAwareCommand
             $finder = (new Finder())
                 ->files()
                 ->name('*.twig')
-                ->in($mockupDir);
+                ->in($lookupDirs);
 
             foreach ($finder as $file) {
-                $templates[] = $target . '::mockup/' . $file->getRelativePathname();
+                $template = $target . '::mockup/' . $file->getRelativePathname();
+
+                if (!in_array($template, $templates)) {
+                    $templates[] = $template;
+                }
             }
 
             if (count($templates) === 0) {

@@ -66,17 +66,10 @@ class BaseController
             );
         }
 
-        // build mockup path and template reference
+        // build template reference
         array_shift($parts);
         $mockupRelativePath = 'mockup/' . implode('/', $parts) . '.twig';
-        $mockupPath = $bundle->getPath() . '/Resources/views/' . $mockupRelativePath;
 
-        if (file_exists($mockupPath)) {
-            return $bundle->getName() . '::' . $mockupRelativePath;
-        }
-
-        throw new \Exception(
-            "Unable to find mockup '{$path}' (looked for file '{$mockupPath}'"
-        );
+        return $bundle->getName() . '::' . $mockupRelativePath;
     }
 } 
