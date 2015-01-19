@@ -1,0 +1,15 @@
+<html>
+<head>
+    <title>Mockups index</title>
+</head>
+<body>
+    <h3>Mockups</h3>
+    <ul>
+    {% for template in templates %}
+        <li>
+            <a href="./{{ template }}">{{ template }}</a>
+        </li>
+    {% endfor %}
+    </ul>
+</body>
+</html>

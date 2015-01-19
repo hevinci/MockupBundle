@@ -65,6 +65,21 @@ class ExportManager
         }
 
         $this->dumpAssets($targetDir);
+        $this->makeMap($templates, $targetDir);
+    }
+
+    private function makeMap(array $templates, $targetDir)
+    {
+        foreach ($templates as $index => $template) {
+            $parts = explode('::', $template);
+            $name = substr($parts[1], 7); // remove "mockup/" part
+            $templates[$index] = substr($name, 0, -5); // remove ".twig" part
+        }
+
+        $content = $this->twig
+            ->loadTemplate('HeVinciMockupBundle::index.html.twig')
+            ->render(['templates' => $templates]);
+        $this->writeFile('index::mockup/index.html.twig', $content, $targetDir);
     }
 
     private function prepareEnvironment($fakeRequest = true)
