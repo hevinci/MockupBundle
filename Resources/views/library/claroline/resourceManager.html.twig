@@ -1,0 +1,160 @@
+{% extends 'HeVinciMockupBundle::library/claroline/tool.html.twig' %}
+
+{% set toolName = 'Ressources' %}
+{% set toolIcon = 'folder-open' %}
+
+{% block panelRest %}
+    <div class="main resource-manager">
+        <div class="navbar navbar-default navbar-static-top">
+            <ul class="nav navbar-nav" role="toolbar">
+                <li class="dropdown">
+                    <a class="dropdown-toggle" data-toggle="dropdown">
+                        <i class="fa fa-pencil-square-o"></i>
+                        Créer
+                        <span class="caret"></span>
+                    </a>
+                    <ul class="dropdown-menu create" role="menu">
+                        <li role="presentation"><a role="menuitem" id="file">Fichier</a></li>
+                        <li role="presentation"><a role="menuitem" id="directory">Répertoire</a></li>
+                        <li role="presentation"><a role="menuitem" id="text">Texte</a></li>
+                        <li role="presentation"><a role="menuitem" id="resource_shortcut">Raccourcis</a></li>
+                        <li role="presentation"><a role="menuitem" id="activity">Activité</a></li>
+                        <li role="presentation"><a role="menuitem" id="claroline_announcement_aggregate">Annonces</a></li>
+                        <li role="presentation"><a role="menuitem" id="claroline_forum">Forum</a></li>
+                        <li role="presentation"><a role="menuitem" id="claroline_web_resource">Ressource web</a></li>
+                        <li role="presentation"><a role="menuitem" id="claroline_scorm_12">Scorm (1.2)</a></li>
+                        <li role="presentation"><a role="menuitem" id="claroline_scorm_2004">Scorm (2004)</a></li>
+                        <li role="presentation"><a role="menuitem" id="claroline_survey">Sondage</a></li>
+                        <li role="presentation"><a role="menuitem" id="ujm_exercise">Exercice</a></li>
+                    </ul>
+                </li>
+                <li>
+                    <a class="open-picker">
+                        <i class="fa fa-plus"></i>
+                        Ajouter
+                    </a>
+                </li>
+                <li>
+                    <a class="cut disabled" data-toggle="tooltip" data-placement="bottom" title="Couper">
+                        <i class="fa fa-scissors"></i>
+                    </a>
+                </li>
+                <li>
+                    <a class="copy disabled" data-toggle="tooltip" data-placement="bottom" title="Copier">
+                        <i class="fa fa-files-o"></i>
+                    </a>
+                </li>
+                <li>
+                    <a class="paste disabled" data-toggle="tooltip" data-placement="bottom" title="Coller">
+                        <i class="fa fa-clipboard"></i>
+                    </a>
+                </li>
+                <li>
+                    <a class="delete disabled" data-toggle="tooltip" data-placement="bottom" title="Supprimer">
+                        <i class="fa fa-trash-o"></i>
+                    </a>
+                </li>
+                <li>
+                    <a class="download disabled" data-toggle="tooltip" data-placement="bottom" title=""
+                       data-original-title="Télécharger">
+                        <i class="fa fa-download"></i>
+                    </a>
+                </li>
+                <li class="dropdown">
+                    <a class="dropdown-toggle zoom" data-toggle="dropdown">
+                        <i class="fa fa-search-plus"></i>
+                        <span class="caret"></span>
+                    </a>
+                    <ul class="dropdown-menu zoom" role="menu">
+                        <li role="presentation"><a role="menuitem" id="zoom50">50%</a></li>
+                        <li role="presentation"><a role="menuitem" id="zoom75">75%</a></li>
+                        <li role="presentation" class="active"><a role="menuitem" id="zoom100">100%</a></li>
+                        <li role="presentation"><a role="menuitem" id="zoom125">125%</a></li>
+                        <li role="presentation"><a role="menuitem" id="zoom150">150%</a></li>
+                        <li role="presentation"><a role="menuitem" id="zoom200">200%</a></li>
+                    </ul>
+                </li>
+            </ul>
+
+            <form class="navbar-form pull-right" role="search">
+                <div class="input-group" style="width: 250px;">
+                    <input class="name form-control" type="text" placeholder="Rechercher" value="">
+                <span class="input-group-btn">
+                    <button class="filter btn btn-default" type="button" style="height: 34px">
+                        <i class="fa fa-search"></i>
+                    </button>
+                    <button class="config-search-panel btn btn-default" type="button" style="height: 34px"><i
+                            class="fa fa-cog"></i></button>
+                </span>
+                </div>
+            </form>
+        </div>
+        <ul id="sortable" class="nodes ui-sortable ui-sortable-disabled">
+        {% block resources %}{% endblock %}
+        </ul>
+    </div>
+{% endblock %}
+
+{% macro resource(options) %}
+    <li class="node-thumbnail node ui-state-default zoom100" id="2">
+        <div class="checkbox">
+            <input type="checkbox">
+        </div>
+        <div class="node-element" id="node-element-2"
+             style="background-image: url('{{ asset(options.icon is defined ? options.icon : 'bundles/clarolinecore/images/resources/icons/res_default.png' ) }}');">
+        </div>
+        <div class="dropdown" rel="tooltip">
+            <a class="dropdown-toggle name dropdown-thumbnail" role="button" data-toggle="dropdown" href="#">
+                <div class="node-name">{{ options.name is defined ? options.name : 'Nouvelle ressource' }} <i class="fa fa-caret-down"></i></div>
+            </a>
+            <ul class="dropdown-menu" role="menu">
+                <li role="presentation">
+                    <a role="menuitem" href="#" class="node-menu-action" data-action="download" data-is-custom="no"
+                       data-id="2" tabindex="-1">
+                        Télécharger
+                    </a>
+                </li>
+                <li role="presentation">
+                    <a role="menuitem" href="#" class="node-menu-action" data-action="delete" data-is-custom="no"
+                       data-id="2" tabindex="-1">
+                        Supprimer
+                    </a>
+                </li>
+                <li role="presentation">
+                    <a role="menuitem" href="#" class="node-menu-action" data-action="edit-rights" data-is-custom="no"
+                       data-id="2" tabindex="-1" data-action-type="display-form">
+                        Editer les droits
+                    </a>
+                </li>
+                <li role="presentation">
+                    <a role="menuitem" href="#" class="node-menu-action" data-action="open-tracking" data-is-custom="no"
+                       data-id="2" tabindex="-1">
+                        Voir le suivi de l'objet
+                    </a>
+                </li>
+                <li role="presentation">
+                    <a role="menuitem" href="#" class="node-menu-action" data-action="rename" data-is-custom="no"
+                       data-id="2" tabindex="-1" data-action-type="display-form">
+                        Renommer
+                    </a>
+                </li>
+                <li role="presentation">
+                    <a role="menuitem" href="#" class="node-menu-action" data-action="edit-properties"
+                       data-is-custom="no" data-id="2" tabindex="-1" data-action-type="display-form">
+                        Editer les propriétés
+                    </a>
+                </li>
+                {% if options.customActions is defined %}
+                    {% for action in options.customActions %}
+                        <li role="presentation">
+                            <a role="menuitem" href="#" class="node-menu-action" data-action="edit-properties"
+                               data-is-custom="no" data-id="2" tabindex="-1" data-action-type="display-form">
+                                {{ action }}
+                            </a>
+                        </li>
+                    {% endfor %}
+                {% endif %}
+            </ul>
+        </div>
+    </li>
+{% endmacro %}

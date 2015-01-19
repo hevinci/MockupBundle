@@ -107,6 +107,50 @@ and all its children. You can include a modal with an `embed` tag:
 {% endblock %}
 ```
 
+### *claroline/resourceManager.html.twig*
+
+Provides the layout of the resource manager with one block:
+ 
+- resources
+
+This template is a child of *tool.html.twig*, so the variables associated
+with it (see above) can also be used:
+
+```django
+{% extends 'HeVinciMockupBundle::library/claroline/resourceManager.html.twig' %}
+
+{% set toolSection = 'Espaces d\activités' %}
+{% set toolWorkspace = 'Mon espace' %}
+
+{% block resources %}
+    ...
+{% endblock %}
+```
+
+The template includes a macro for thumbnail creation called 
+`resource`. This macro accepts a hash of options:
+
+- name (name of the resource)
+- icon (path to the thumbnail asset)
+- customActions (list of additional actions in the resource menu)
+
+Example:
+
+```django
+{% extends 'HeVinciMockupBundle::library/claroline/resourceManager.html.twig' %}
+{% import 'HeVinciMockupBundle::library/claroline/resourceManager.html.twig' as macros %}
+
+{% block resources %}
+    {{
+        macros.resource({
+            "name": "Nouvelle ressource",
+            "icon": "bundles/foobar/images/res_new.png",
+            "customActions": ["Partager", "Exporter"]
+        })
+    }}
+{% endblock %}
+```
+
 TODO
 ----
 
