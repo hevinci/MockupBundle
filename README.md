@@ -25,7 +25,7 @@ if needed.
 particular mockup. For example, the url for rendering the template
 `FooBarBundle::mockup/test.html.twig` will be:
 <div>
-    `http://localhost/myproject/mockup?path=foobar/test.html`
+    *http://localhost/myproject/mockup?path=foobar/test.html*
 </div>    
 Note that:
     - the path must be prefixed by the name of the bundle in short,
