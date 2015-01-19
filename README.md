@@ -81,6 +81,32 @@ Complete list of available variables:
 - *toolPage*: path of the current page of the tool (breadcrumb)
 - *toolWorkspace*: name of the workspace of the tool (workspace section only)
 
+### *claroline/modal.html.twig*
+
+Provides a modal dialog skeleton with the following blocks:
+
+- title
+- body
+- footer
+
+A slot for the modal is already present in the main layout template
+and all its children. You can include a modal with an `embed` tag:
+
+```django
+{% extends "HevinciMockupBundle::library/claroline/tool.html.twig" %}
+
+{% block modal %}
+    {% embed "HeVinciMockupBundle::library/claroline/modal.html.twig" %}
+        {% block title %}Titre de la modale...{% endblock %}
+        {% block body %}
+            <form action="#" method="POST">
+                ...
+            </form>
+        {% endblock %}
+    {% endembed %}
+{% endblock %}
+```
+
 TODO
 ----
 

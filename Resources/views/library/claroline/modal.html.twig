@@ -1,0 +1,29 @@
+<div class="modal fade in" style="display: block;" aria-hidden="false">
+    <div id="modal-add-competence-form" class="modal-dialog" role="dialog" aria-labelledby="modalLabel"
+         aria-hidden="true">
+        <div class="modal-content">
+            <div class="modal-header">
+                <button type="button" class="close" data-dismiss="modal" aria-hidden="true">
+                    &times;
+                </button>
+                <h4 class="modal-title">
+                    {% block title %}Titre{% endblock %}
+                </h4>
+            </div>
+            <div class="modal-body">
+                {% block body %}{% endblock %}
+            </div>
+            <div class="modal-footer">
+                {% block footer %}
+                    <span class="btn btn-default" data-dismiss="modal">
+                        Annuler
+                    </span>
+                    <button type="button" id='save' class="btn btn-primary">
+                        Ok
+                    </button>
+                {% endblock %}
+            </div>
+        </div>
+    </div>
+</div>
+<div class="modal-backdrop fade in"></div>
