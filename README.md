@@ -23,10 +23,8 @@ if needed.
 
 3. Use the *mockup* route with the *path* query parameter to render a 
 particular mockup. For example, the url for rendering the template
-`FooBarBundle::mockup/test.html.twig` will be:
-<div>
-    *http://localhost/myproject/mockup?path=foobar/test.html*
-</div>    
+`FooBarBundle::mockup/test.html.twig` will be
+*http://localhost/myproject/mockup?path=foobar/test.html*.
 Note that:
     - the path must be prefixed by the name of the bundle in short,
       lower case notation
