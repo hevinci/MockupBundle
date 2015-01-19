@@ -1,0 +1,13 @@
+{
+    "name": "hevinci/mockup-bundle",
+    "description": "Utility bundle for mockup creation and export",
+    "keywords": ["Mockup"],
+    "require": {
+        "php": ">=5.4.1",
+        "symfony/symfony": "~2.0"
+    },
+    "autoload": {
+        "psr-0": { "HeVinci\\MockupBundle": "" }
+    },
+    "target-dir": "HeVinci/MockupBundle"
+}
