@@ -42,55 +42,13 @@ class ExportCommand extends ContainerAwareCommand
 
     protected function execute(InputInterface $input, OutputInterface $output)
     {
-        $target = $input->getArgument('target');
         $manager = $this->getContainer()->get('hevinci.mockup.export_manager');
-        $kernel = $this->getContainer()->get('kernel');
-        $bundles = $kernel->getBundles();
-        $templates = [];
+        $collector = $this->getContainer()->get('hevinci.mockup.template_collector');
+        $templates = $collector->collect($input->getArgument('target'));
 
-        // look for bundle target
-        if (array_key_exists($target, $bundles)) {
-            $appDir = $this->getContainer()->get('kernel')->getRootDir();
-            $appMockupDir = $appDir . '/Resources/' . $bundles[$target]->getName() . '/views/mockup';
-            $bundleMockupDir = $bundles[$target]->getPath() . '/Resources/views/mockup';
-            $lookupDirs = [];
-
-            if (file_exists($appMockupDir)) {
-                $lookupDirs[] = $appMockupDir;
-            }
-
-            if (file_exists($bundleMockupDir)) {
-                $lookupDirs[] = $bundleMockupDir;
-            }
-
-            if (count($lookupDirs) === 0) {
-                $output->writeln(
-                    "Bundle '{$bundles[$target]->getName()}' has no mockup directory"
-                );
-                exit(1);
-            }
-
-            $finder = (new Finder())
-                ->files()
-                ->name('*.twig')
-                ->in($lookupDirs);
-
-            foreach ($finder as $file) {
-                $template = $target . '::mockup/' . $file->getRelativePathname();
-
-                if (!in_array($template, $templates)) {
-                    $templates[] = $template;
-                }
-            }
-
-            if (count($templates) === 0) {
-                $output->writeln('No template found in mockup directory');
-                exit(1);
-            }
-        } else {
-            // try with simple template
-            // TODO: directory option should be added
-            $templates[] = $target;
+        if (count($templates) === 0) {
+            $output->writeln('No template found in mockup directory');
+            exit(1);
         }
 
         $targetDir = 'mockups-' . date('d-m-y-h:i:s');

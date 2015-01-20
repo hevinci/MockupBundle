@@ -38,6 +38,23 @@ Currently this command accept as argument either a bundle name (e.g.
 `FooBarBundle`) or a template reference (e.g. 
 `FooBarBundle::mockup/test.html.twig`)
 
+Map
+---
+
+By default, the `hevinci:mockup:export` command export all the 
+templates it founds and references them in a *index.html* file 
+at the root of the generated package. If you want to export only 
+a selection of mockups and/or if you want to sort the mockups in 
+a particular order, you can place in your *mockup* directory 
+a *map.yml* file:
+
+```yaml
+#FooBarBundle/Resources/views/mockup/map.yml
+
+- mockup-y.twig
+- mockup-x.twig
+- baz/mockup-z.twig
+```
 
 Library
 -------
@@ -154,7 +171,6 @@ Example:
 TODO
 ----
 
-- Add a "mockup map" functionality, allowing to order mockups and 
-  easily navigate through them
+- Implement easy navigation through generated mockups
 - Allow to export a particular mockup directory
 - Extend the library
