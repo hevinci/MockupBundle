@@ -171,6 +171,5 @@ Example:
 TODO
 ----
 
-- Implement easy navigation through generated mockups
 - Allow to export a particular mockup directory
 - Extend the library

@@ -6,7 +6,6 @@ use Symfony\Bundle\FrameworkBundle\Command\ContainerAwareCommand;
 use Symfony\Component\Console\Input\InputInterface;
 use Symfony\Component\Console\Input\InputOption;
 use Symfony\Component\Console\Output\OutputInterface;
-use Symfony\Component\Finder\Finder;
 
 class ExportCommand extends ContainerAwareCommand
 {
@@ -42,17 +41,17 @@ class ExportCommand extends ContainerAwareCommand
 
     protected function execute(InputInterface $input, OutputInterface $output)
     {
-        $manager = $this->getContainer()->get('hevinci.mockup.export_manager');
-        $collector = $this->getContainer()->get('hevinci.mockup.template_collector');
-        $templates = $collector->collect($input->getArgument('target'));
+        $exporter = $this->getContainer()->get('hevinci.mockup.exporter');
+        $collector = $this->getContainer()->get('hevinci.mockup.collector');
+        $mockups = $collector->collect($input->getArgument('target'));
 
-        if (count($templates) === 0) {
-            $output->writeln('No template found in mockup directory');
+        if (count($mockups) === 0) {
+            $output->writeln('No mockup found in mockup directory');
             exit(1);
         }
 
         $targetDir = 'mockups-' . date('d-m-y-h:i:s');
-        $manager->exportTemplates($templates, getcwd() . '/' . $targetDir);
+        $exporter->exportMockups($mockups, getcwd() . '/' . $targetDir);
         $output->writeln("Mockups exported in '{$targetDir}'");
     }
 }

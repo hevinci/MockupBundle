@@ -1,15 +1,73 @@
 <html>
 <head>
     <title>Mockups index</title>
+    <style>
+        main {
+            width: 70%;
+            margin: 50px auto;
+            padding: 0;
+            border: solid 2px rgba(0,0,0,0.3);
+            border-radius: 2px;
+            font-size: 15px;
+            font-family: Helvetica, Arial, sans-serif;
+            background-color: #eee;
+            color: rgba(0,0,0,0.8);
+        }
+
+        main ul {
+            width: 70%;
+            margin: auto;
+            padding: 40px inherit;
+        }
+
+        main ul a:link {
+            color: #666;
+        }
+
+        main ul a:visited {
+            color: #888;
+        }
+
+        main header, main footer {
+            height: 54px;
+            line-height: 54px;
+            text-align: center;
+            font-size: 18px;
+            color: rgba(0,0,0,0.6);
+            background-color: #ddd;
+        }
+
+        main header {
+            border-bottom: solid 1px #999;
+        }
+
+        main footer {
+            border-top: solid 1px #999;
+        }
+
+        main footer a {
+            padding: 4px 8px;
+            border: solid 2px rgba(0,0,0,0.6);
+            border-radius: 2px;
+            text-decoration: none;
+            color: rgba(0,0,0,0.6);
+            background-color: #eee;
+        }
+    </style>
 </head>
 <body>
-    <h3>Mockups</h3>
-    <ul>
-    {% for template in templates %}
-        <li>
-            <a href="./{{ template }}">{{ template }}</a>
-        </li>
-    {% endfor %}
-    </ul>
+    <main>
+        <header>Mockups</header>
+        <ul>
+        {% for mockup in mockups %}
+            <li>
+                <a href="./{{ mockup.getShortReference() }}">{{ mockup.getShortReference() }}</a>
+            </li>
+        {% endfor %}
+        </ul>
+        <footer>
+            <a href="./{{ mockups[0].getShortReference() }}">Start</a>
+        </footer>
+    </main>
 </body>
 </html>

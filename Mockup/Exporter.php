@@ -1,6 +1,6 @@
 <?php
 
-namespace HeVinci\MockupBundle\Manager;
+namespace HeVinci\MockupBundle\Mockup;
 
 use HeVinci\MockupBundle\Twig\AssetsExtension;
 use JMS\DiExtraBundle\Annotation as DI;
@@ -10,9 +10,9 @@ use Symfony\Component\HttpFoundation\Request;
 use Symfony\Component\HttpFoundation\Session\Session;
 
 /**
- * @DI\Service("hevinci.mockup.export_manager")
+ * @DI\Service("hevinci.mockup.exporter")
  */
-class ExportManager
+class Exporter
 {
     private $twig;
     private $assetExtension;
@@ -46,40 +46,47 @@ class ExportManager
     }
 
     /**
-     * Exports a list of templates as static file(s) with asset dependencies bundled.
+     * Exports a list of mockups as static file(s) with asset dependencies bundled.
      *
-     * @param array $templates  Array of templates references (symfony notation)
-     * @param string $targetDir Pathname of the directory where templates are to be exported
+     * @param Reference[]   $mockups    Array of templates references
+     *                                  (symfony notation)
+     * @param string        $targetDir  Pathname of the directory where
+     *                                  templates are to be exported
      * @throws \Exception
      */
-    public function exportTemplates(array $templates, $targetDir)
+    public function exportMockups(array $mockups, $targetDir)
     {
         $this->prepareEnvironment(php_sapi_name() === 'cli' || defined('STDIN'));
         $this->filesystem->mkdir($targetDir);
+        $map = $this->makeMap($mockups, $targetDir);
 
-        foreach ($templates as $template) {
-            $this->assetExtension->setDepthLevel($this->findDepthLevel($template));
-            $content = $this->twig->loadTemplate($template)->render([]);
+        for ($i = 0, $max = count($mockups); $i < $max; ++$i) {
+            $depthLevel = $mockups[$i]->getDepthLevel();
+            $this->assetExtension->setDepthLevel($depthLevel);
+            $content = $this->twig
+                ->loadTemplate($mockups[$i]->getTemplateReference())
+                ->render([
+                    '_previous' => $i === 0 ? null : $mockups[$i - 1],
+                    '_next' => $i === $max - 1 ? null : $mockups[$i + 1],
+                    '_current' => $mockups[$i],
+                    '_index' => $map
+                ]);
             $this->assetExtension->setDepthLevel(0);
-            $this->writeFile($template, $content, $targetDir);
+            $this->writeFile($mockups[$i], $content, $targetDir);
         }
 
         $this->dumpAssets($targetDir);
-        $this->makeMap($templates, $targetDir);
     }
 
-    private function makeMap(array $templates, $targetDir)
+    private function makeMap(array $mockups, $targetDir)
     {
-        foreach ($templates as $index => $template) {
-            $parts = explode('::', $template);
-            $name = substr($parts[1], 7); // remove "mockup/" part
-            $templates[$index] = substr($name, 0, -5); // remove ".twig" part
-        }
-
         $content = $this->twig
             ->loadTemplate('HeVinciMockupBundle::index.html.twig')
-            ->render(['templates' => $templates]);
-        $this->writeFile('index::mockup/index.html.twig', $content, $targetDir);
+            ->render(['mockups' => $mockups]);
+        $map = Reference::fromTemplate('fake::mockup/index.html.twig');
+        $this->writeFile($map, $content, $targetDir);
+
+        return $map;
     }
 
     private function prepareEnvironment($fakeRequest = true)
@@ -100,26 +107,14 @@ class ExportManager
         $this->twig->addExtension($this->assetExtension);
     }
 
-    private function findDepthLevel($templateName)
+    private function writeFile(Reference $reference, $content, $targetDir)
     {
-        $parts = explode('::', $templateName);
-        $path = explode('/', $parts[1]);
-        array_shift($path); // remove 'mockup' segment;
-        array_pop($path); // remove file name
-
-        return count($path);
-    }
-
-    private function writeFile($templateName, $content, $targetDir)
-    {
-        $parts = explode('::', $templateName);
-        $path = explode('/', $parts[1]);
-        array_shift($path); // remove 'mockup' segment;
-        $fileName = array_pop($path);
-        $filename = substr($fileName, 0, -5); // remove '.twig' extension
-        $directory = $targetDir . '/' . implode('/', $path);
-        $this->filesystem->mkdir($directory);
-        file_put_contents($directory . '/' . $filename, $content);
+        $relativePath = $reference->getShortReference();
+        $segments = explode('/', $relativePath);
+        $name = array_pop($segments);
+        $dir = $targetDir . '/' . implode('/', $segments);
+        $this->filesystem->mkdir($dir);
+        file_put_contents($dir . '/' . $name, $content);
     }
 
     private function dumpAssets($targetDir)

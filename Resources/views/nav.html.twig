@@ -1,0 +1,90 @@
+{% macro prependLink(depthLevel) %}
+    {% set link = './' %}
+    {% if depthLevel > 0 %}
+        {% for i in 1..depthLevel %}
+            {% set link = link ~ '../' %}
+        {% endfor %}
+    {% endif %}
+    {{ link }}
+{% endmacro %}
+
+{% import _self as macros %}
+
+{% if _previous is defined or _next is defined %}
+    <style>
+        nav#mockup-nav {
+            width: 250px;
+            height: 52px;
+            position: fixed;
+            bottom: 24px;
+            left: 0;
+            right: 0;
+            margin-left: auto;
+            margin-right: auto;
+            z-index: 10000;
+            background-color: #eee;
+            border: solid 2px rgba(0,0,0,0.3);
+            border-radius: 2px;
+            text-align: center;
+            text-overflow: ellipsis;
+            font-size: 12px;
+            font-style: italic;
+        }
+
+        nav#mockup-nav a.mockup-control {
+            display: block;
+            position: absolute;
+            width: 12px;
+            height: 12px;
+            bottom: 10px;
+            border: solid 2px rgba(0,0,0,0.6);
+        }
+
+        nav#mockup-nav a.mockup-control.previous {
+            left: 10px;
+            border-top: none;
+            border-right: none;
+            transform: rotate(45deg);
+        }
+
+        nav#mockup-nav a.mockup-control.next {
+            right: 10px;
+            border-bottom: none;
+            border-left: none;
+            transform: rotate(45deg);
+        }
+
+        nav#mockup-nav a.mockup-control.index {
+            left: 0;
+            right: 0;
+            bottom: 8px;
+            width: 15px;
+            height: 15px;
+            margin: auto;
+        }
+
+        nav#mockup-nav div.current {
+            background-color: #ddd;
+            border-bottom: solid 1px #999;
+        }
+    </style>
+
+    <nav id="mockup-nav">
+        <div class="current">
+            {{ _current.getShortReference() }}
+        </div>
+        {% if _previous %}
+            <a href="{{ macros.prependLink(_previous.getDepthLevel())|trim ~ _previous.getShortReference() }}"
+               class="mockup-control previous">
+            </a>
+        {% endif %}
+        <a href="{{ macros.prependLink(_current.getDepthLevel())|trim ~ _index.getShortReference() }}"
+           class="mockup-control index">
+        </a>
+        {% if _next %}
+            <a href="{{ macros.prependLink(_next.getDepthLevel())|trim ~ _next.getShortReference() }}"
+               class="mockup-control next">
+            </a>
+        {% endif %}
+    </nav>
+{% endif %}

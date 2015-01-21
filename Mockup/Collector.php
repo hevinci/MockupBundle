@@ -1,15 +1,16 @@
 <?php
 
-namespace HeVinci\MockupBundle\Manager;
+namespace HeVinci\MockupBundle\Mockup;
 
 use JMS\DiExtraBundle\Annotation as DI;
+use Symfony\Component\Finder\Finder;
 use Symfony\Component\HttpKernel\KernelInterface;
 use Symfony\Component\Yaml\Yaml;
 
 /**
- * @DI\Service("hevinci.mockup.template_collector")
+ * @DI\Service("hevinci.mockup.collector")
  */
-class TemplateCollector
+class Collector
 {
     private $kernel;
 
@@ -40,7 +41,7 @@ class TemplateCollector
     public function collect($target)
     {
         $bundles = $this->kernel->getBundles();
-        $templates = [];
+        $mockups = [];
 
         // look for bundle target
         if (array_key_exists($target, $bundles)) {
@@ -63,54 +64,51 @@ class TemplateCollector
                 );
             }
 
-            $templates = $this->getTemplates($lookupDirs, $target);
+            $mockups = $this->getTemplates($lookupDirs, $target);
         } else {
             // try with simple template
             // TODO: directory option should be added
-            $templates[] = $target;
+            $mockups[] = Reference::fromTemplate($target);
         }
 
-        return $templates;
+        return $mockups;
     }
 
-    private function getTemplates(array $lookupDirs, $target)
+    private function getTemplates(array $lookupDirs, $bundleName)
     {
-        $templates = [];
+        $mockups = [];
 
-        if (false !== $map = $this->getMap($lookupDirs)) {
-            $templates = $map;
+        if (false !== $map = $this->getMap($lookupDirs, $bundleName)) {
+            $mockups = $map;
         } else {
             $finder = (new Finder())
                 ->files()
                 ->name('*.twig')
                 ->in($lookupDirs);
+            $relativePaths = [];
 
             foreach ($finder as $file) {
-                $reference = $file->getRelativePathname();
+                $relativePath = $file->getRelativePathname();
 
-                if (!in_array($reference, $templates)) {
-                    $templates[] = $reference;
-                    sort($templates);
+                if (!in_array($relativePath, $relativePaths)) {
+                    $mockups[] = Reference::fromPath($bundleName, $relativePath);
+                    $relativePaths[] = $relativePath;
                 }
             }
         }
 
-        foreach ($templates as $index => $template) {
-            $templates[$index] = $target . '::mockup/' . $template;
-        }
-
-        return $templates;
+        return $mockups;
     }
 
-    private function getMap(array $lookupDirs)
+    private function getMap(array $lookupDirs, $bundleName)
     {
         $hasMap = false;
         $map = [];
 
         foreach ($lookupDirs as $dir) {
             if (file_exists($file = "{$dir}/map.yml")) {
-                $templates = Yaml::parse(file_get_contents($file));
-                $map = array_merge($map, $templates);
+                $mockups = Yaml::parse(file_get_contents($file));
+                $map = array_merge($map, $mockups);
                 $hasMap = true;
             }
         }
@@ -119,6 +117,13 @@ class TemplateCollector
             return false;
         }
 
-        return array_unique($map);
+        // remove duplicates in case we have 2 maps (app level and bundle level)
+        $map = array_unique($map);
+
+        array_walk($map, function (&$item) use ($bundleName) {
+            $item = Reference::fromPath($bundleName, $item);
+        });
+
+        return $map;
     }
 } 
