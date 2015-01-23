@@ -63,16 +63,22 @@
                             {{ toolSection }}
                         {% endif %}
                     </div>
+                    {% set hasTool = false %}
                     {% for tool in toolList %}
+                        {% if tool.name == toolName %}
+                            {% set hasTool = true %}
+                        {% endif %}
                         <a class="list-group-item" href="#">
                             <i class="fa fa-{{ tool.icon }}"></i>
                             {{ tool.name }}
                         </a>
                     {% endfor %}
-                    <a class="list-group-item active" href="#">
-                        <i class="fa fa-{{ toolIcon }}"></i>
-                        {{ toolName }}
-                    </a>
+                    {% if not hasTool %}
+                        <a class="list-group-item active" href="#">
+                            <i class="fa fa-{{ toolIcon }}"></i>
+                            {{ toolName }}
+                        </a>
+                    {% endif %}
                 </div>
                 <div class="scroll-up hide" aria-hidden="true"><i class="fa fa-angle-double-up"></i></div>
                 <div class="scroll-down" aria-hidden="true"><i class="fa fa-angle-double-down"></i></div>
