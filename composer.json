@@ -5,10 +5,9 @@
     "require": {
         "php": ">=5.4.1",
         "symfony/symfony": "~2.0",
-        "claroline/kernel-bundle": "~1.0"
+        "claroline/kernel-bundle": "~6.0"
     },
     "autoload": {
-        "psr-0": { "HeVinci\\MockupBundle": "" }
-    },
-    "target-dir": "HeVinci/MockupBundle"
+        "psr-4": { "HeVinci\\MockupBundle\\": "" }
+    }
 }

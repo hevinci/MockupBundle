@@ -6,7 +6,7 @@ Installation
 Usage
 -----
 
-1. Create a *mockup* directory in the "Resource/views" directory 
+1. Create a *mockup* directory in the *Resource/views* directory
 of your bundle. Alternatively, you can do the same in the *app*
 directory of your application:
 <pre>
@@ -42,18 +42,17 @@ Map
 ---
 
 By default, the `hevinci:mockup:export` command export all the 
-templates it founds and references them in a *index.html* file 
+templates it finds and references them in an *index.html* file
 at the root of the generated package. If you want to export only 
 a selection of mockups and/or if you want to sort the mockups in 
-a particular order, you can place in your *mockup* directory 
-a *map.yml* file:
+a particular order, you can place a *map.yml* in your *mockup* directory:
 
 ```yaml
 #FooBarBundle/Resources/views/mockup/map.yml
 
-- mockup-y.twig
-- mockup-x.twig
-- baz/mockup-z.twig
+- mockup-y.html.twig
+- mockup-x.html.twig
+- baz/mockup-z.html.twig
 ```
 
 Library
@@ -77,9 +76,9 @@ following blocks:
 Provides a tool layout. Dedicated variables are used to render 
 automatically some parts of the page. For example, the template:
 
-```django
+```twig
 
-{% extends 'HeVinciMockupBundle::library/tool.html.twig' %}
+{% extends 'HeVinciMockupBundle::library/claroline/tool.html.twig' %}
 
 {% set toolName = 'My tool' %}
 {% set toolSection = 'Administration' %}
@@ -109,7 +108,7 @@ Provides a modal dialog skeleton with the following blocks:
 A slot for the modal is already present in the main layout template
 and all its children. You can include a modal with an `embed` tag:
 
-```django
+```twig
 {% extends "HevinciMockupBundle::library/claroline/tool.html.twig" %}
 
 {% block modal %}
@@ -133,7 +132,7 @@ Provides the layout of the resource manager with one block:
 This template is a child of *tool.html.twig*, so the variables associated
 with it (see above) can also be used:
 
-```django
+```twig
 {% extends 'HeVinciMockupBundle::library/claroline/resourceManager.html.twig' %}
 
 {% set toolSection = 'Espaces d\activités' %}
