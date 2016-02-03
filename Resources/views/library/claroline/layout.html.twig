@@ -9,13 +9,13 @@
     </title>
     <link rel="stylesheet" href="{{ asset('themes/claroline/bootstrap.css') }}" screen="media">
     <link rel="stylesheet" href="{{ asset('vendor/fortawesome/font-awesome/css/font-awesome.css') }}">
-    <script type="text/javascript" src="{{ asset('bundles/frontend/jquery/jquery-2.1.0.min.js') }}"></script>
+    <script type="text/javascript" src="{{ asset('bundles/frontend/jquery/dist/jquery.min.js') }}"></script>
     <link rel="stylesheet" type="text/css"
-          href="{{ asset('bundles/frontend/jquery/plugin/datepicker/css/datepicker3.css') }}">
+          href="{{ asset('bundles/frontend/bootstrap-datepicker/dist/css/bootstrap-datepicker.min.css') }}">
     <link rel="shortcut icon" href="{{ asset('bundles/clarolinecore/images/ico/favicon.ico') }}">
     <link rel="apple-touch-icon" href="{{ asset('bundles/clarolinecore/images/ico/apple-touch-icon.png') }}">
-    <link rel="stylesheet"
-          href="{{ asset('bundles/frontend/tinymce/plugins/mention/css/autocomplete.css') }}">
+    {#<link rel="stylesheet"
+          href="{{ asset('bundles/frontend/tinymce/plugins/mention/css/autocomplete.css') }}">#}
 </head>
 <body class="left-bar-push">
 <div id="sf-environement" data-env="dev" class="hide"></div>
@@ -253,11 +253,11 @@
 </script>
 
 <script type="text/javascript"
-        src="{{ asset('bundles/frontend/jquery/plugin/datepicker/js/bootstrap-datepicker.js') }}"></script>
+        src="{{ asset('bundles/frontend/bootstrap-datepicker/dist/js/bootstrap-datepicker.min.js') }}"></script>
 <script type="text/javascript"
-        src="{{ asset('bundles/frontend/jquery/plugin/datepicker/js/locales/bootstrap-datepicker.fr.js') }}"></script>
-<script type="text/javascript" src="{{ asset('bundles/frontend/underscore/underscore-1.6.0.min.js') }}"></script>
-<script type="text/javascript" src="{{ asset('bundles/frontend/backbone/backbone-1.1.2.min.js') }}"></script>
+        src="{{ asset('bundles/frontend/bootstrap-datepicker/dist/locales/bootstrap-datepicker.fr.min.js') }}"></script>
+<script type="text/javascript" src="{{ asset('bundles/frontend/underscore/underscore.js') }}"></script>
+<script type="text/javascript" src="{{ asset('bundles/frontend/backbone/backbone.js') }}"></script>
 <script type="text/javascript" src="{{ asset('vendor/claroline/js/libraries.js') }}"></script>
 <script type="text/javascript"
         src="{{ asset('bundles/stfalcontinymce/vendor/tinymce/tinymce.jquery.min.js') }}"></script>
