@@ -26,7 +26,7 @@
     {% block sidebar %}{% endblock %}
     <div id="top_bar" class="navbar navbar-inverse navbar-fixed-top left-bar-push break" role="navigation"
          style="overflow: hidden;">
-        <div class="container">
+        <div class="container-fluid">
             <div class="navbar-header">
                 <button class="navbar-toggle" data-toggle="collapse" data-target=".navbar-collapse">
                     <span class="icon-bar"></span>
@@ -165,7 +165,7 @@
             </div>
         </div>
     </div>
-    <div class="container">
+    <div class="container-fluid">
         <div class="row">
             <div class="col-md-12">
                 <ul class="breadcrumb">
@@ -192,7 +192,7 @@
     <div id="push"></div>
 </div>
 <div id="footer">
-    <div class="container">
+    <div class="container-fluid">
         <div class="row">
             <p>
                 <span class="pull-right locale-select label label-default">FR</span>
@@ -204,7 +204,7 @@
     </div>
 </div>
 <script type="text/javascript" src="{{ asset('bundles/clarolinecore/js/iframe/iframe.js') }}"></script>
-<script type="text/javascript" src="{{ asset('vendor/twbs/bootstrap/js/bootstrap.js') }}"></script>
+<script type="text/javascript" src="{{ asset('bundles/frontend/bootstrap/dist/js/bootstrap.min.js') }}"></script>
 <script type="text/javascript" src="{{ asset('vendor/jms/twig-js/twig.js') }}"></script>
 
 {# core bundle should output a named file for this #}
