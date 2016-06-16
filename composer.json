@@ -4,8 +4,7 @@
     "keywords": ["Mockup"],
     "require": {
         "php": ">=5.4.1",
-        "symfony/symfony": "~2.0",
-        "claroline/kernel-bundle": "~6.0"
+        "claroline/distribution": "~7.0"
     },
     "autoload": {
         "psr-4": { "HeVinci\\MockupBundle\\": "" }
