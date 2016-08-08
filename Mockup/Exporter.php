@@ -138,9 +138,10 @@ class Exporter
         }
 
         // TODO: this should obviously be removed in favour of a config setting
+        
         $this->filesystem->mirror(
-            $webDir . '/vendor/fortawesome/font-awesome/fonts',
-            $assetDir . '/vendor/fortawesome/font-awesome/fonts'
+            $webDir . '/packages/font-awesome/fonts',
+            $assetDir . '/packages/font-awesome/fonts'
         );
     }
 }
