@@ -21,7 +21,7 @@
 <div id="sf-environement" data-env="dev" class="hide"></div>
 <div id="homePath" class="hide">{{ path('claro_index') }}</div>
 <div id="homeAsset" class="hide">{{ asset('') }}</div>
-<div id="homeLocale" class="hide">fr_FR</div>
+<div id="homeLocale" class="hide"> {{ app.request.locale }} </div>
 <div id="wrap">
     {% block sidebar %}{% endblock %}
     <div id="top_bar" class="navbar navbar-inverse navbar-fixed-top" role="navigation"
@@ -41,28 +41,28 @@
                 <ul class="nav navbar-nav">
                     <ul class="nav navbar-nav">
                         <li role="presentation" class="first">
-                            <a role="menuitem" href="#" title="Bureau">
-                                <i class="fa fa-briefcase"></i><span class="break-hide"> Mon profil</span>
+                            <a role="menuitem" href="#" title="{{ 'desktop'|trans({}, 'platform') }}">
+                                <i class="fa fa-briefcase"></i><span class="break-hide"> {{ 'my_profile'|trans({}, 'platform')}} </span>
                                 <span class="badge"></span>
                             </a>
                         </li>
                         <li>
                             <a role="menuitem" href="#" title="Administration">
-                                <i class="fa fa-cog"></i><span class="break-hide"> Administration</span>
+                                <i class="fa fa-cog"></i><span class="break-hide">{{ 'administration'|trans({}, 'platform' )}}</span>
                             </a>
                         </li>
                         <li>
                             <a role="menuitem" href="#"
-                               title="Vous avez 0 nouveaux message(s)">
+                               title="{{ 'new_message_alert'|trans({'%count%': 3}, 'platform') }}">
                                 <i class="fa fa-envelope"></i>
-                                <span class="break-hide"> Messages</span>
+                                <span class="break-hide">{{ 'messages'|trans({}, 'platform' )}}</span>
                             </a>
                         </li>
                         <li id="notification-topbar-item" class="last dropdown">
                             <a role="menuitem" title="Notifications" class="pointer-hand dropdown-toggle"
                                data-toggle="dropdown">
                                 <i class="fa fa-bell"></i>
-                                <span class="break-hide"> Notifications</span>
+                                <span class="break-hide">{{ 'notifications'|trans({}, 'platform' )}}</span>
                             </a>
                             <div class="notifications-dropdown-list dropdown-menu">
                                 <div class="notification-pointer"></div>
@@ -88,30 +88,30 @@
                     <li role="presentation" class="dropdown">
                         <a role="menuitem" class="pointer-hand dropdown-toggle" data-toggle="dropdown">
                             <i class="fa fa-book"></i>
-                            <span> Espaces d'activités </span>
+                            <span> {{ 'workspace'|trans({}, 'platform') }} </span>
                             <i class="caret"></i>
                         </a>
                         <ul class="dropdown-menu" role="menu">
-                            <li role="presentation" class="dropdown-header">Historique</li>
+                            <li role="presentation" class="dropdown-header">{{ 'history'|trans({}, 'platform') }}</li>
                             <li role="presentation" class="">
-                                <a role="menuitem" href="#"><span> Espace personnel - John Doe (admin) </span>
+                                <a role="menuitem" href="#"><span> {{ 'personal_workspace'|trans({}, 'platform') }} - John Doe (admin) </span>
                                 </a>
                             </li>
                             <li role="presentation" class="divider"></li>
                             <li role="presentation" class="">
                                 <a role="menuitem" href="#">
-                                    <i class="fa fa-book"></i><span> Mes espaces d'activités </span>
+                                    <i class="fa fa-book"></i><span> {{ 'my_workspaces'|trans({}, 'platform') }} </span>
                                 </a>
                             </li>
                             <li role="presentation" class="">
                                 <a role="menuitem" href="#">
-                                    <i class="fa fa-book"></i><span> Tous les espaces d'activités publics </span>
+                                    <i class="fa fa-book"></i><span> {{ 'all_public_workspaces'|trans({}, 'platform') }} </span>
                                 </a>
                             </li>
                             <li role="presentation" class="divider"></li>
                             <li role="presentation" class="">
                                 <a role="menuitem" href="#">
-                                    <i class="fa fa-pencil"></i><span> Créer un espace d'activités </span>
+                                    <i class="fa fa-pencil"></i><span> {{ 'create_workspace'|trans({}, 'platform') }} </span>
                                 </a>
                             </li>
                         </ul>
@@ -124,7 +124,7 @@
                         <ul class="dropdown-menu" role="menu">
                             <li class="dropdown first" role="presentation">
                                 <a role="menuitem" href="#">
-                                    <i class="fa fa-user"></i><span> Mon profil</span>
+                                    <i class="fa fa-user"></i><span> {{ 'my_profile'|trans({}, 'platform') }} </span>
                                 </a>
                             </li>
                             <li class="divider" role="presentation">
@@ -132,23 +132,23 @@
                             </li>
                             <li class="dropdown" role="presentation">
                                 <a role="menuitem" href="#">
-                                    <i class="fa fa-book"></i><span> Espace personnel</span>
+                                    <i class="fa fa-book"></i><span> {{ 'personal_workspace'|trans({}, 'platform') }} </span>
                                 </a>
                             </li>
                             <li class="dropdown" role="presentation">
                                 <a role="menuitem" href="#">
-                                    <i class="fa fa-calendar"></i><span> Mon agenda</span>
+                                    <i class="fa fa-calendar"></i><span> {{ 'my_agenda'|trans({}, 'platform') }} </span>
                                 </a>
                             </li>
                             <li class="dropdown" role="presentation">
                                 <a role="menuitem"
                                    href="#">
-                                    <i class="fa fa-folder"></i><span> Mes ressources</span>
+                                    <i class="fa fa-folder"></i><span> {{ 'my_resources'|trans({}, 'platform') }} </span>
                                 </a>
                             </li>
                             <li class="dropdown" role="presentation">
                                 <a role="menuitem" href="#">
-                                    <i class="fa fa-trophy"></i><span> Mes badges</span>
+                                    <i class="fa fa-trophy"></i><span> {{ 'my_badges'|trans({}, 'icap_badges') }} </span>
                                 </a>
                             </li>
                             <li class="divider" role="presentation">
@@ -156,7 +156,7 @@
                             </li>
                             <li class="dropdown last" role="presentation" name="logout" id="btn-logout">
                                 <a role="menuitem" href="#">
-                                    <i class="fa fa-power-off"></i><span> Déconnexion</span>
+                                    <i class="fa fa-power-off"></i><span> {{ 'logout'|trans({}, 'platform') }}</span>
                                 </a>
                             </li>
                         </ul>
@@ -197,7 +197,7 @@
             <p>
                 <span class="pull-right locale-select label label-default">FR</span>
                                 <span>
-                    Développé par <a href="#">Claroline</a>
+                    {{ 'powered_by'|trans({}, 'platform') }} <a href="#">Claroline</a>
                 </span>
             </p>
         </div>

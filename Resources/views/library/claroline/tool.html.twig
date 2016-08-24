@@ -9,40 +9,40 @@
 
 {% if toolSection == 'Administration' %}
     {% set toolList = [
-            {'name': 'Paramètres de la plateforme', 'icon': 'cog'},
-            {'name': 'Gestion des utilisateurs', 'icon': 'user'},
-            {'name': 'Gestion des espaces d\'activités', 'icon': 'book'},
-            {'name': 'Gestion des badges', 'icon': 'trophy'},
-            {'name': 'Inscription à des espaces d\'activités', 'icon': 'book'},
-            {'name': 'Paquets de la plateforme', 'icon': 'wrench'},
-            {'name': 'Onglets de la page d\'accueil', 'icon': 'th-large'},
-            {'name': 'Outils du bureau', 'icon': 'pencil'},
-            {'name': 'Suivi de la plateforme', 'icon': 'bars'},
-            {'name': 'Statistiques de la plateforme', 'icon': 'bar-chart-o'},
-            {'name': 'Gestion des rôles', 'icon': 'users'}
+            {'name': 'platform_parameters', 'icon': 'cog'},
+            {'name': 'user_management'|trans({}, 'tools'), 'icon': 'user'},
+            {'name': 'workspace_management'|trans({}, 'tools'), 'icon': 'book'},
+            {'name': 'badges_management'|trans({}, 'tools'), 'icon': 'trophy'},
+            {'name': 'registration_to_workspace'|trans({}, 'tools'), 'icon': 'book'},
+            {'name': 'platform_plugins'|trans({}, 'tools'), 'icon': 'wrench'},
+            {'name': 'home_tabs'|trans({}, 'tools'), 'icon': 'th-large'},
+            {'name': 'desktop_tools'|trans({}, 'tools'), 'icon': 'pencil'},
+            {'name': 'platform_logs'|trans({}, 'tools'), 'icon': 'bars'},
+            {'name': 'platform_analytics'|trans({}, 'tools'), 'icon': 'bar-chart-o'},
+            {'name': 'roles_management'|trans({}, 'tools'), 'icon': 'users'}
         ]
     %}
 {% elseif toolSection == 'Espace d\'activités' %}
     {% set toolList = [
-            {'name': 'Voir en tant que', 'icon': 'eye'},
-            {'name': 'Accueil', 'icon': 'home'},
-            {'name': 'Ressources', 'icon': 'folder-open'},
-            {'name': 'Paramètres', 'icon': 'cog'},
-            {'name': 'Agenda', 'icon': 'calendar'},
-            {'name': 'Suivi', 'icon': 'list'},
-            {'name': 'Tableau de bord', 'icon': 'bar-chart-o'},
-            {'name': 'Utilisateur', 'icon': 'user'},
-            {'name': 'Badges', 'icon': 'trophy'},
-            {'name': 'Mes badges', 'icon': 'trophy'},
-            {'name': 'Mes activités', 'icon': 'tasks'},
-            {'name': 'Equipes', 'icon': 'users'}
+            {'name': 'show_as'|trans({}, 'mockup'), 'icon': 'eye'},
+            {'name': 'home'|trans({}, 'tools'), 'icon': 'home'},
+            {'name': 'resources'|trans({}, 'tools'), 'icon': 'folder-open'},
+            {'name': 'parameters'|trans({}, 'tools'), 'icon': 'cog'},
+            {'name': 'agenda'|trans({}, 'tools'), 'icon': 'calendar'},
+            {'name': 'logs'|trans({}, 'tools'), 'icon': 'list'},
+            {'name': 'analytics'|trans({}, 'tools'), 'icon': 'bar-chart-o'},
+            {'name': 'user_management'|trans({}, 'tools'), 'icon': 'user'},
+            {'name': 'badges'|trans({}, 'tools'), 'icon': 'trophy'},
+            {'name': 'all_my_badges'|trans({}, 'tools'), 'icon': 'trophy'},
+            {'name': 'claroline_activity_tool'|trans({}, 'tools'), 'icon': 'tasks'},
+            {'name': 'claroline_team_tool'|trans({}, 'tools'), 'icon': 'users'}
         ]
     %}
 {% elseif toolSection == 'Bureau' %}
     {% set toolList = [
-            {'name': 'Accueil', 'icon': 'home'},
-            {'name': 'Ressources', 'icon': 'folder-open'},
-            {'name': 'Paramètres', 'icon': 'cog'}
+            {'name': 'home'|trans({}, 'platform'), 'icon': 'home'},
+            {'name': 'resources'|trans({}, 'platform'), 'icon': 'folder-open'},
+            {'name': 'parameters'|trans({}, 'platform'), 'icon': 'cog'}
         ]
     %}
 {% else %}
@@ -93,7 +93,7 @@
 {% block breadcrumb %}
     {% if toolSection == 'Espace d\'activités' %}
         <li><a href="#"><i class="fa fa-book"></i>
-                Mes espaces d'activités</a></li>
+                {{ 'my_workspaces'|trans({}, 'platform') }}</a></li>
         <li><a href="#">{{ workspace }}</a></li>
     {% else %}
         <li>
