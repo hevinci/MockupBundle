@@ -10,53 +10,53 @@
                 <li class="dropdown">
                     <a class="dropdown-toggle" data-toggle="dropdown">
                         <i class="fa fa-pencil-square-o"></i>
-                        Créer
+                            {{ 'create'|trans({}, 'platform') }}
                         <span class="caret"></span>
                     </a>
                     <ul class="dropdown-menu create" role="menu">
-                        <li role="presentation"><a role="menuitem" id="file">Fichier</a></li>
-                        <li role="presentation"><a role="menuitem" id="directory">Répertoire</a></li>
-                        <li role="presentation"><a role="menuitem" id="text">Texte</a></li>
-                        <li role="presentation"><a role="menuitem" id="resource_shortcut">Raccourcis</a></li>
-                        <li role="presentation"><a role="menuitem" id="activity">Activité</a></li>
-                        <li role="presentation"><a role="menuitem" id="claroline_announcement_aggregate">Annonces</a></li>
-                        <li role="presentation"><a role="menuitem" id="claroline_forum">Forum</a></li>
-                        <li role="presentation"><a role="menuitem" id="claroline_web_resource">Ressource web</a></li>
-                        <li role="presentation"><a role="menuitem" id="claroline_scorm_12">Scorm (1.2)</a></li>
-                        <li role="presentation"><a role="menuitem" id="claroline_scorm_2004">Scorm (2004)</a></li>
-                        <li role="presentation"><a role="menuitem" id="claroline_survey">Sondage</a></li>
-                        <li role="presentation"><a role="menuitem" id="ujm_exercise">Exercice</a></li>
+                        <li role="presentation"><a role="menuitem" id="file"> {{ 'file'|trans({}, 'resource') }} </a></li>
+                        <li role="presentation"><a role="menuitem" id="directory">{{ 'directory'|trans({}, 'resource') }}</a></li>
+                        <li role="presentation"><a role="menuitem" id="text">{{ 'text'|trans({}, 'resource') }}</a></li>
+                        <li role="presentation"><a role="menuitem" id="resource_shortcut">{{ 'resource_shortcut'|trans({}, 'resource') }}</a></li>
+                        <li role="presentation"><a role="menuitem" id="activity">{{ 'activity'|trans({}, 'resource') }}</a></li>
+                        <li role="presentation"><a role="menuitem" id="claroline_announcement_aggregate">{{ 'claroline_announcement_aggregate'|trans({}, 'resource') }}</a></li>
+                        <li role="presentation"><a role="menuitem" id="claroline_forum">{{ 'claroline_forum'|trans({}, 'resource') }}</a></li>
+                        <li role="presentation"><a role="menuitem" id="claroline_web_resource">{{ 'claroline_web_resource'|trans({}, 'resource') }}</a></li>
+                        <li role="presentation"><a role="menuitem" id="claroline_scorm_12">{{ 'claroline_scorm_12'|trans({}, 'resource') }}</a></li>
+                        <li role="presentation"><a role="menuitem" id="claroline_scorm_2004">{{ 'claroline_scorm_2004'|trans({}, 'resource') }}</a></li>
+                        <li role="presentation"><a role="menuitem" id="claroline_survey">{{ 'claroline_survey'|trans({}, 'resource') }}</a></li>
+                        <li role="presentation"><a role="menuitem" id="ujm_exercise">{{ 'ujm_exercise'|trans({}, 'resource') }}</a></li>
                     </ul>
                 </li>
                 <li>
                     <a class="open-picker">
                         <i class="fa fa-plus"></i>
-                        Ajouter
+                        {{ 'add'|trans({}, 'platform') }}
                     </a>
                 </li>
                 <li>
-                    <a class="cut disabled" data-toggle="tooltip" data-placement="bottom" title="Couper">
+                    <a class="cut disabled" data-toggle="tooltip" data-placement="bottom" title="{{ 'cut'|trans({}, 'platform') }}">
                         <i class="fa fa-scissors"></i>
                     </a>
                 </li>
                 <li>
-                    <a class="copy disabled" data-toggle="tooltip" data-placement="bottom" title="Copier">
+                    <a class="copy disabled" data-toggle="tooltip" data-placement="bottom" title="{{ 'copy'|trans({}, 'platform') }}">
                         <i class="fa fa-files-o"></i>
                     </a>
                 </li>
                 <li>
-                    <a class="paste disabled" data-toggle="tooltip" data-placement="bottom" title="Coller">
+                    <a class="paste disabled" data-toggle="tooltip" data-placement="bottom" title="{{ 'paste'|trans({}, 'platform') }}">
                         <i class="fa fa-clipboard"></i>
                     </a>
                 </li>
                 <li>
-                    <a class="delete disabled" data-toggle="tooltip" data-placement="bottom" title="Supprimer">
+                    <a class="delete disabled" data-toggle="tooltip" data-placement="bottom" title="{{ 'delete'|trans({}, 'platform') }}">
                         <i class="fa fa-trash-o"></i>
                     </a>
                 </li>
                 <li>
                     <a class="download disabled" data-toggle="tooltip" data-placement="bottom" title=""
-                       data-original-title="Télécharger">
+                       data-original-title="{{ 'download'|trans({}, 'platform') }}">
                         <i class="fa fa-download"></i>
                     </a>
                 </li>
@@ -78,7 +78,7 @@
 
             <form class="navbar-form pull-right" role="search">
                 <div class="input-group" style="width: 250px;">
-                    <input class="name form-control" type="text" placeholder="Rechercher" value="">
+                    <input class="name form-control" type="text" placeholder="{{ 'search'|trans({}, 'platform') }}" value="">
                 <span class="input-group-btn">
                     <button class="filter btn btn-default" type="button" style="height: 34px">
                         <i class="fa fa-search"></i>
@@ -105,43 +105,43 @@
         </div>
         <div class="dropdown" rel="tooltip">
             <a class="dropdown-toggle name dropdown-thumbnail" role="button" data-toggle="dropdown" href="#">
-                <div class="node-name">{{ options.name is defined ? options.name : 'Nouvelle ressource' }} <i class="fa fa-caret-down"></i></div>
+                <div class="node-name">{{ options.name is defined ? options.name : 'create_resource'|trans({}, 'platform') }} <i class="fa fa-caret-down"></i></div>
             </a>
             <ul class="dropdown-menu" role="menu">
                 <li role="presentation">
                     <a role="menuitem" href="#" class="node-menu-action" data-action="download" data-is-custom="no"
                        data-id="2" tabindex="-1">
-                        Télécharger
+                        {{ 'download'|trans({}, 'platform') }}
                     </a>
                 </li>
                 <li role="presentation">
                     <a role="menuitem" href="#" class="node-menu-action" data-action="delete" data-is-custom="no"
                        data-id="2" tabindex="-1">
-                        Supprimer
+                        {{ 'delete'|trans({}, 'platform') }}
                     </a>
                 </li>
                 <li role="presentation">
                     <a role="menuitem" href="#" class="node-menu-action" data-action="edit-rights" data-is-custom="no"
                        data-id="2" tabindex="-1" data-action-type="display-form">
-                        Editer les droits
+                        {{ 'edit-rights'|trans({}, 'resource') }}
                     </a>
                 </li>
                 <li role="presentation">
                     <a role="menuitem" href="#" class="node-menu-action" data-action="open-tracking" data-is-custom="no"
                        data-id="2" tabindex="-1">
-                        Voir le suivi de l'objet
+                        {{ 'open-tracking'|trans({}, 'resource') }}
                     </a>
                 </li>
                 <li role="presentation">
                     <a role="menuitem" href="#" class="node-menu-action" data-action="rename" data-is-custom="no"
                        data-id="2" tabindex="-1" data-action-type="display-form">
-                        Renommer
+                        {{ 'rename'|trans({}, 'resource') }}
                     </a>
                 </li>
                 <li role="presentation">
                     <a role="menuitem" href="#" class="node-menu-action" data-action="edit-properties"
                        data-is-custom="no" data-id="2" tabindex="-1" data-action-type="display-form">
-                        Editer les propriétés
+                        {{ 'edit-properties'|trans({}, 'resource') }}
                     </a>
                 </li>
                 {% if options.customActions is defined %}

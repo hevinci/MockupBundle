@@ -27,9 +27,9 @@ class Exporter
      *     "container"  = @DI\Inject("service_container")
      * })
      *
-     * @param \Twig_Environment $twig
-     * @param AssetsExtension $extension
-     * @param Filesystem $filesystem
+     * @param \Twig_Environment  $twig
+     * @param AssetsExtension    $extension
+     * @param Filesystem         $filesystem
      * @param ContainerInterface $container
      */
     public function __construct(
@@ -37,45 +37,58 @@ class Exporter
         AssetsExtension $extension,
         Filesystem  $filesystem,
         ContainerInterface $container
-    )
-    {
+    ) {
         $this->twig = $twig;
         $this->assetExtension = $extension;
         $this->filesystem = $filesystem;
         $this->container = $container;
+        $this->langs = ['fr', 'en'];
     }
 
     /**
      * Exports a list of mockups as static file(s) with asset dependencies bundled.
      *
-     * @param Reference[]   $mockups    Array of templates references
-     *                                  (symfony notation)
-     * @param string        $targetDir  Pathname of the directory where
-     *                                  templates are to be exported
+     * @param Reference[] $mockups   Array of templates references
+     *                               (symfony notation)
+     * @param string      $targetDir Pathname of the directory where
+     *                               templates are to be exported
+     *
      * @throws \Exception
      */
     public function exportMockups(array $mockups, $targetDir)
     {
         $this->prepareEnvironment(php_sapi_name() === 'cli' || defined('STDIN'));
         $this->filesystem->mkdir($targetDir);
-        $map = $this->makeMap($mockups, $targetDir);
 
-        for ($i = 0, $max = count($mockups); $i < $max; ++$i) {
-            $depthLevel = $mockups[$i]->getDepthLevel();
-            $this->assetExtension->setDepthLevel($depthLevel);
-            $content = $this->twig
-                ->loadTemplate($mockups[$i]->getTemplateReference())
-                ->render([
-                    '_previous' => $i === 0 ? null : $mockups[$i - 1],
-                    '_next' => $i === $max - 1 ? null : $mockups[$i + 1],
-                    '_current' => $mockups[$i],
-                    '_index' => $map
-                ]);
-            $this->assetExtension->setDepthLevel(0);
-            $this->writeFile($mockups[$i], $content, $targetDir);
+        foreach ($this->langs as $lang) {
+            $langDir = $targetDir.DIRECTORY_SEPARATOR.$lang;
+            $this->filesystem->mkdir($langDir);
+            $map = $this->makeMap($mockups, $langDir);
         }
 
-        $this->dumpAssets($targetDir);
+        for ($i = 0, $max = count($mockups); $i < $max; ++$i) {
+            foreach ($this->langs as $lang) {
+                $this->container->get('translator')->setLocale($lang);
+                $this->container->get('request')->setLocale($lang);
+                $langDir = $targetDir.DIRECTORY_SEPARATOR.$lang;
+                $depthLevel = $mockups[$i]->getDepthLevel();
+                $this->assetExtension->setDepthLevel($depthLevel);
+                $content = $this->twig
+                    ->loadTemplate($mockups[$i]->getTemplateReference())
+                    ->render([
+                        '_previous' => $i === 0 ? null : $mockups[$i - 1],
+                        '_next' => $i === $max - 1 ? null : $mockups[$i + 1],
+                        '_current' => $mockups[$i],
+                        '_index' => $map,
+                    ]);
+                $this->assetExtension->setDepthLevel(0);
+                $this->writeFile($mockups[$i], $content, $langDir);
+            }
+        }
+
+        foreach ($this->langs as $lang) {
+            $this->dumpAssets($targetDir.DIRECTORY_SEPARATOR.$lang);
+        }
     }
 
     private function makeMap(array $mockups, $targetDir)
@@ -112,9 +125,9 @@ class Exporter
         $relativePath = $reference->getShortReference();
         $segments = explode('/', $relativePath);
         $name = array_pop($segments);
-        $dir = $targetDir . '/' . implode('/', $segments);
+        $dir = $targetDir.'/'.implode('/', $segments);
         $this->filesystem->mkdir($dir);
-        file_put_contents($dir . '/' . $name, $content);
+        file_put_contents($dir.'/'.$name, $content);
     }
 
     private function dumpAssets($targetDir)
@@ -125,8 +138,8 @@ class Exporter
             return;
         }
 
-        $assetDir = $targetDir . '/assets';
-        $webDir = $this->container->get('kernel')->getRootdir() . '/../web';
+        $assetDir = $targetDir.'/assets';
+        $webDir = $this->container->get('kernel')->getRootdir().'/../web';
         $this->filesystem->mkdir($assetDir);
 
         foreach ($assets as $asset) {
@@ -134,14 +147,14 @@ class Exporter
                 continue;
             }
 
-            $this->filesystem->copy($webDir . $asset, $assetDir . $asset);
+            $this->filesystem->copy($webDir.$asset, $assetDir.$asset);
         }
 
         // TODO: this should obviously be removed in favour of a config setting
-        
+
         $this->filesystem->mirror(
-            $webDir . '/packages/font-awesome/fonts',
-            $assetDir . '/packages/font-awesome/fonts'
+            $webDir.'/packages/font-awesome/fonts',
+            $assetDir.'/packages/font-awesome/fonts'
         );
     }
 }
