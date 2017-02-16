@@ -22,6 +22,7 @@
 <div id="homePath" class="hide">{{ path('claro_index') }}</div>
 <div id="homeAsset" class="hide">{{ asset('') }}</div>
 <div id="homeLocale" class="hide">fr_FR</div>
+<div id="homeTheme" class="hide">claroline</div>
 <div id="wrap">
     {% block sidebar %}{% endblock %}
     <div id="top_bar" class="navbar navbar-inverse navbar-fixed-top" role="navigation"
@@ -203,71 +204,8 @@
         </div>
     </div>
 </div>
-<script type="text/javascript" src="{{ asset('bundles/clarolinecore/js/iframe/iframe.js') }}"></script>
-<script type="text/javascript" src="{{ asset('bundles/frontend/bootstrap/dist/js/bootstrap.min.js') }}"></script>
-<script type="text/javascript" src="{{ asset('vendor/jms/twig-js/twig.js') }}"></script>
 
-{# core bundle should output a named file for this #}
-{% javascripts debug=false filter='twig_js, jsmin' vars=["locale"]
-    "@ClarolineCoreBundle/Resources/views/Resource/breadcrumbs.html.twigjs"
-    "@ClarolineCoreBundle/Resources/views/Resource/actions.html.twigjs"
-    "@ClarolineCoreBundle/Resources/views/Resource/filters.html.twigjs"
-    "@ClarolineCoreBundle/Resources/views/Resource/thumbnail.html.twigjs"
-    "@ClarolineCoreBundle/Resources/views/Resource/results.html.twigjs"
-    "@ClarolineCoreBundle/Resources/views/Resource/roles.html.twigjs"
-    "@ClarolineCoreBundle/Resources/views/Modal/modal.html.twigjs"
-    "@ClarolineCoreBundle/Resources/views/Modal/validationFooter.html.twigjs"
-    "@ClarolineCoreBundle/Resources/views/Modal/errorFooter.html.twigjs"
-    "@ClarolineCoreBundle/Resources/views/ConfirmationMessage/confirmAddRole.html.twigjs"
-    "@ClarolineCoreBundle/Resources/views/ConfirmationMessage/removeGroupConfirm.html.twigjs"
-    "@ClarolineCoreBundle/Resources/views/ConfirmationMessage/removeUserConfirm.html.twigjs"
-    "@ClarolineCoreBundle/Resources/views/ConfirmationMessage/removeMessageConfirm.html.twigjs"
-    "@ClarolineCoreBundle/Resources/views/ConfirmationMessage/restoreMessageConfirm.html.twigjs"
-    "@ClarolineCoreBundle/Resources/views/ConfirmationMessage/resetPasswordConfirm.html.twigjs"
-    "@ClarolineCoreBundle/Resources/views/ConfirmationMessage/addUserConfirm.html.twigjs"
-    "@ClarolineCoreBundle/Resources/views/Tool/workspace/roles/roleUserLabel.html.twigjs"
-    "@ClarolineCoreBundle/Resources/views/Tool/workspace/roles/roleGroupLabel.html.twigjs"
-    "@ClarolineCoreBundle/Resources/views/ConfirmationMessage/removeWorkspacesConfirm.html.twigjs"
-    "@ClarolineCoreBundle/Resources/views/ConfirmationMessage/noRoleSelected.html.twigjs"
-    "@ClarolineCoreBundle/Resources/views/Administration/Roles/renderRoleRow.html.twig"
-    "@ClarolineCoreBundle/Resources/views/Tool/workspace/parameters/model/modelRow.html.twig"
-    "@ClarolineCoreBundle/Resources/views/Tool/workspace/parameters/model/userRow.html.twig"
-    "@ClarolineCoreBundle/Resources/views/Tool/workspace/parameters/model/groupRow.html.twig"
-    "@ClarolineCoreBundle/Resources/views/Tool/workspace/parameters/model/resourceElement.html.twig"
-    "@ClarolineCoreBundle/Resources/views/Tool/workspace/parameters/model/tabElement.html.twig"
-%}<script type="text/javascript" src="{{ asset_url }}"></script>
-{% endjavascripts %}
-
-<script type="text/javascript" src="{{ asset('vendor/jquery/ui/jqueryui.js') }}"></script>
-<script type="text/javascript" src="{{ asset('bundles/fosjsrouting/js/router.js') }}"></script>
-<script type="text/javascript" src="{{ asset('bundles/bazingajstranslation/js/translator.min.js') }}"></script>
-
-{# inlining client side translations #}
-<script type="text/javascript">
-    {{ render(url('bazinga_jstranslation_js', { 'domain': 'home' })) }}
-</script>
-
-<script type="text/javascript"
-        src="{{ asset('bundles/frontend/bootstrap-datepicker/dist/js/bootstrap-datepicker.min.js') }}"></script>
-<script type="text/javascript"
-        src="{{ asset('bundles/frontend/bootstrap-datepicker/dist/locales/bootstrap-datepicker.fr.min.js') }}"></script>
-<script type="text/javascript" src="{{ asset('bundles/frontend/underscore/underscore.js') }}"></script>
-<script type="text/javascript" src="{{ asset('bundles/frontend/backbone/backbone.js') }}"></script>
-<script type="text/javascript" src="{{ asset('vendor/claroline/js/libraries.js') }}"></script>
-<script type="text/javascript"
-        src="{{ asset('bundles/stfalcontinymce/vendor/tinymce/tinymce.jquery.min.js') }}"></script>
-<script type="text/javascript"
-        src="{{ asset('bundles/stfalcontinymce/vendor/tinymce/jquery.tinymce.min.js') }}"></script>
-<!-- this is not duplicated file -->
-<script type="text/javascript" src="{{ asset('bundles/stfalcontinymce/vendor/tinymce/jquery.tinymce.min.js') }}"></script>
-<script type="text/javascript">
-    $('body').tooltip({
-        selector: '[data-toggle=tooltip]'
-    });
-</script>
-<script type="text/javascript">
-    $('.maintenance-popover').popover();
-</script>
+{% include 'ClarolineCoreBundle:Layout:javascripts.html.twig' %}
 
 {% block modal %}{% endblock %}
 
